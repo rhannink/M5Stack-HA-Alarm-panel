@@ -48,7 +48,8 @@ The valid RFID UID's have to be inserted into the follwing place in the Arduino 
       {0x12,0x22,0x33,0x45},
       {0x13,0x22,0x33,0x46},  
      };
-     
+You can read UID from your RFID tokens by connecting a serial consiole from the Arduino IDE. Whenever you present a RFID token, the UID is logged in the serial console.     
+
 If yo addiotionally wat to use readable names for the cards, define these in:
 
     //Array with accompanying user names 
@@ -62,8 +63,10 @@ The pictures on the screen are PNG files loaded from the filesystem (SPIFFS) of 
 ## Used Arduino Libraries
 I use the MFRC522 I2C library from M5Stack and the M5ez library from Rob Gongrijp to create the button and header text fields. Due to a bug, the time does not (yet) show in the righthand corner, next to the wifi strentgh icon.
 
-## TLS Security 
+## Security 
 This code uses a secured authenticated TLS connection to an MQTT server. My MQTT broker is secured using a Lets Encrypt certificate. So the Lets encrypted CA is added to the code to verify the validity of the MQTT broker certificate.
+
+**So the communication is secured by WPA2, TLS and UserID/password. That should be sufficient for us ordinary people. But bear in mind that it is relative easy to clone an existing RFID token. https://www.getkisi.com/blog/how-to-copy-access-cards-and-keyfobs**
 
 ## M5Stack alarm panel state machine
 The screens follow the MQTT status topic, whatever the status topic is, that screen is being showed om the M5Stack.
