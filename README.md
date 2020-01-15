@@ -61,7 +61,7 @@ If yo addiotionally wat to use readable names for the cards, define these in:
 The pictures on the screen are PNG files loaded from the filesystem (SPIFFS) of the m5Stack. Through the Arduino IDE choose for *Tools > ESP32 Sketch Data Upload* from the menu to upload the pictures to the SPIFFS filesystem.
 
 ## Used Arduino Libraries
-I use the MFRC522 I2C library from M5Stack and the M5ez library from Rob Gongrijp to create the button and header text fields. Due to a bug, the time does not (yet) show in the righthand corner, next to the wifi strentgh icon.
+I use the MFRC522 I2C library from M5Stack and the [M5ez library from Rob Gonggrijp](https://github.com/ropg/M5ez) to create the button and header text fields. Due to a bug, the time does not (yet) show in the righthand corner, next to the wifi strentgh icon.
 
 ## Security 
 This code uses a secured authenticated TLS connection to an MQTT server. My MQTT broker is secured using a Lets Encrypt certificate. So the Lets encrypted CA is added to the code to verify the validity of the MQTT broker certificate.
