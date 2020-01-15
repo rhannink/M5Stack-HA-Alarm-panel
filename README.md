@@ -72,8 +72,8 @@ This code uses a secured authenticated TLS connection to an MQTT server. My MQTT
 **So the communication is secured by WPA2, TLS and UserID/password. That should be sufficient for us ordinary people. But bear in mind that it is relative easy to clone an existing RFID token. https://www.getkisi.com/blog/how-to-copy-access-cards-and-keyfobs**
 
 ## M5Stack alarm panel state machine
-The screens follow the MQTT status topic, whatever the status topic is, that screen is being showed om the M5Stack.
-If a button is pressed or a card is presented, the according Command is send to the command topic. The MQTT broker dispatches this to the alarm (via HA) and the alarm changes the status through the status topiuc, again via MQTT.
+The screens follow the **MQTT_Status_topic**, whatever the status topic is **(armed_away, armed_home, pending or disarmed)**, that screen is being showed om the M5Stack.
+If a button is pressed or a card is presented, the according Command is send to the **mqtt_command_topic (ARM_AWAY, ARM_HOME or DISARM**. The MQTT broker dispatches this to the alarm (via HA) and the alarm changes the status through the status topiuc, again via MQTT.
 
 ## M5Stack sound bug
 The I2C RFID redaer is interfering in a very annoyoing way with the onboard amplifier/speaker, resulting in a hisshing/whining sound sound. This is a known problem with the M5stack platform. To overcome this, I connected the enable amplifier input with GPIO 5 and first enable the amplifier before beeping and disabling the amplifier directly again after the beep. Read http://community.m5stack.com/topic/367/mod-to-programmatically-disable-speaker-whine-hiss to get more information.
