@@ -79,7 +79,8 @@ If a button is pressed or a card is presented, the according Command **(ARM_AWAY
 The I2C RFID redaer is interfering in a very annoyoing way with the onboard amplifier/speaker, resulting in a hisshing/whining sound sound. This is a known problem with the M5stack platform. To overcome this, I connected the enable amplifier input with GPIO 5 and first enable the amplifier before beeping and disabling the amplifier directly again after the beep. Read http://community.m5stack.com/topic/367/mod-to-programmatically-disable-speaker-whine-hiss to get more information.
 
 ## ToDo
-* Make it more secure by using more advanced features from the RFID tokens then just the UID.
+* add auto screen brightness by adding an LDR or presence detection (screen on when someone in front) by using a small PIR.
+* Make it more secure by using more advanced features from the RFID tokens than just the UID.
 * Read valid UID's and names from a textfile of the SPIFFS filesystem.
 * Add Mastercard and RFID learning mode to interactivally add and remove tokens.
 * Clean up the Code and make it more robust .
