@@ -257,13 +257,14 @@ void loop(){
     for(int i=0; i<3; i++){
       Serial.print("Testing Match with checkArray ");
       Serial.println(i);
-    if((memcmp(readCard,uidArray[i],4))==0){
-      Serial.print("Arrays Match, name is:");
-      Serial.println(nameArray[i]);
-      M5.Lcd.drawJpgFile(SPIFFS, "/blue.jpg", 80, 40);
-      ez.header.show(nameArray[i]);
-      client.publish(mqtt_command_topic, mqtt_command_off);
-      break;
+      if((memcmp(readCard,uidArray[i],4))==0){
+        // UID is valid, disarm the alarm and break
+        Serial.print("Arrays Match, name is:");
+        Serial.println(nameArray[i]);
+        M5.Lcd.drawJpgFile(SPIFFS, "/blue.jpg", 80, 40);
+        ez.header.show(nameArray[i]);
+        client.publish(mqtt_command_topic, mqtt_command_off);
+        break;
       }
     }  
   }
