@@ -1,12 +1,10 @@
 
 
-/* 
- *  You only need to format SPIFFS the first time you run a
-   test or else use the SPIFFS plugin to create a partition
-   https://github.com/me-no-dev/arduino-esp32fs-plugin 
- * put jpg or bmp file in (<project directory>/data)
- * Select Tools > ESP32 Sketch Data Upload menu item. This should start uploading the files into ESP32 flash file system.
-*/
+// M5Stack Home Assistant RFID MQTT alarm panel
+// Author: Remco Hannink
+// Version: 0.1
+// Date: 15-01-2019
+
 
 #include "FS.h"
 #include "SPIFFS.h"
@@ -79,12 +77,14 @@ char msg[50];
 char buttonString[50];
 String alarmStatus ="";
 byte readCard[4];
+
 //Array with valid RFID UID's
 byte uidArray[3][4]={
   {0x11,0x22,0x33,0x44},
   {0x12,0x22,0x33,0x45},
   {0x13,0x22,0x33,0x46},  
 };
+
 //Array with accompanying user names 
 String nameArray[3]={
   "Card1","Card2","Card3"
