@@ -61,7 +61,7 @@ If you additionally want to use readable names for the cards, define these in:
 The names are now displayed in the header briefly and are being dumped to the serial console. But you could sent the names via MQTT and use it for displaying/Text To Speech or precense detection.
 
 ## Uploading images to SPIFFS
-The pictures on the screen are PNG files loaded from the filesystem (SPIFFS) of the m5Stack. Through the Arduino IDE choose for *Tools > ESP32 Sketch Data Upload* from the menu to upload the pictures to the SPIFFS filesystem.
+The pictures on the screen are PNG files loaded from the filesystem (SPIFFS) of the m5Stack. Through the Arduino IDE choose for *Tools > ESP32 Sketch Data Upload* from the menu to upload the pictures to the SPIFFS filesystem. The PNG picture files are in the [data folder](/data) of this github project. 
 
 ## Used Arduino Libraries
 I use the MFRC522 I2C library from M5Stack and the [M5ez library from Rob Gonggrijp](https://github.com/ropg/M5ez) to create the button and header text fields. Due to a bug, the time does not (yet) show in the righthand corner, next to the wifi strentgh icon.
