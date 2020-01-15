@@ -13,7 +13,7 @@ It uses a [M5Stack Core](https://m5stack.com/collections/m5-core/products/basic-
 ![Alarm Off](/images/alarm_off.png "Alarm Off") ![Alarm_pending](/images/alarm_pending.png "Alarm pending") ![Alarm Partially on](/images/alarm_part.png "Alarm Partially On") ![Alarm_Fully On](/images/alarm_full.png "Alarm fully on")
 
 ## Configuration
-To compile and use the code for your own purpose/HA configuration, just change the floowing settings in the Arduino code:
+To compile and use the code for your own purpose/HA configuration, just change the following settings in the Arduino code:
 
     const char ssid[] = "WiFi SSID";
     const char pass[] = "WiFi password"; 
@@ -48,14 +48,17 @@ The valid RFID UID's have to be inserted into the follwing place in the Arduino 
       {0x12,0x22,0x33,0x45},
       {0x13,0x22,0x33,0x46},  
      };
-You can read UID from your RFID tokens by connecting a serial consiole from the Arduino IDE. Whenever you present a RFID token, the UID is logged in the serial console.     
 
-If yo addiotionally wat to use readable names for the cards, define these in:
+You can initially read UID from your RFID tokens by connecting a serial consiole from the Arduino IDE. Whenever you present a RFID token, the UID is logged in the serial console. On of the ToDo items is add a master token to add/delete valid tokens from the system interactive.  
+
+If you additionally want to use readable names for the cards, define these in:
 
     //Array with accompanying user names 
     String nameArray[3]={
       "Card1","Card2","Card3"
     };
+
+The names are now displayed in the header briefly and are being dumped to the serial console. But you could sent the names via MQTT and use it for displaying/Text To Speech or precense detection.
 
 ## Uploading images to SPIFFS
 The pictures on the screen are PNG files loaded from the filesystem (SPIFFS) of the m5Stack. Through the Arduino IDE choose for *Tools > ESP32 Sketch Data Upload* from the menu to upload the pictures to the SPIFFS filesystem.
