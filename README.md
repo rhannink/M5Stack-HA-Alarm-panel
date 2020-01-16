@@ -59,7 +59,7 @@ If you additionally want to use readable names for the cards, define these in:
       "Card1","Card2","Card3"
     };
 
-The names are now displayed in the header briefly and are being dumped to the serial console. But you could sent the names via MQTT and use it for displaying/Text To Speech or precense detection.
+The names are now displayed in the header briefly and are being dumped to the serial console. But you could sent the names via MQTT and use it for displaying/Text To Speech or presence detection.
 
 ## Uploading images to SPIFFS
 The pictures on the screen are PNG files loaded from the filesystem (SPIFFS) of the m5Stack. Through the Arduino IDE choose for *Tools > ESP32 Sketch Data Upload* from the menu to upload the pictures to the SPIFFS filesystem. The PNG picture files are in the [data folder](/data) of this github project. 
