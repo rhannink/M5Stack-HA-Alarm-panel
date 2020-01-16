@@ -219,7 +219,6 @@ void loop(){
   }
   if(M5.BtnB.wasPressed() && (alarmStatus != mqtt_state_part)) {
     beep(100);
-    M5.Lcd.setBrightness(100);
     M5.Lcd.drawJpgFile(SPIFFS, "/orange.jpg", 80, 40);
     ez.header.show(display_state_part);
     client.publish(mqtt_command_topic, mqtt_command_part);
