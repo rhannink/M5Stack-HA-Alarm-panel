@@ -87,5 +87,7 @@ The I2C RFID reader is interfering in a very annoyoing way with the onboard ampl
 * Clean up the Code and make it more robust .
 * Add Availablilty topic (LWT and birth messages) so Host can see whenever panels are not online.
 * Make it more configureable (e.g. Continous pending beeps are not always enjoyed ;-)).
+* Fix the M5ez time problem
+* Make a version with keypad face instead of rfid face.
 
 *I am not a programmer in any way and I have very limited time free, so please feel free to improve or extend my code with additional features.*
