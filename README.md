@@ -83,7 +83,7 @@ The I2C RFID reader is interfering in a very annoyoing way with the onboard ampl
 * add auto screen brightness by adding an LDR or presence detection (screen on when someone in front) by using a small PIR.
 * Make it more secure by using more advanced features from the RFID tokens than just the UID.
 * Read valid UID's and names from a textfile of the SPIFFS filesystem.
-* Add Mastercard and RFID learning mode to interactivally add and remove tokens.
+* Add a master card and RFID learning mode to interactivally add and remove tokens.
 * Clean up the Code and make it more robust .
 * Add Availablilty topic (LWT and birth messages) so Host can see whenever panels are not online.
 * Make it more configureable (e.g. Continous pending beeps are not always enjoyed ;-)).
