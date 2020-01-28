@@ -48,7 +48,7 @@ The valid RFID UID's have to be inserted into the follwing place in the Arduino 
       {0x12,0x22,0x33,0x45},
       {0x13,0x22,0x33,0x46},  
      };
-If you have more or less then 3 tokens, plaese change the [3] value into the correct one.
+In this example, I use 3 different tokens. If you have more or less then change the [3] value into the correct one.
 
 You can initially read UID from your RFID tokens by connecting a serial consiole from the Arduino IDE. Whenever you present a RFID token, the UID is logged in the serial console. On of the ToDo items is add a master token to add/delete valid tokens from the system interactive.  
 The M5Stack RFID face is actually a I2C RC522 RFID reader compatible with 13,56Mhz tokens.
