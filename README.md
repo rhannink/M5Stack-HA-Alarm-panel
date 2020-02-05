@@ -48,6 +48,7 @@ The valid RFID UID's have to be inserted into the follwing place in the Arduino 
       {0x12,0x22,0x33,0x45},
       {0x13,0x22,0x33,0x46},  
      };
+In this example, I use 3 different tokens. If you have more or less then change the `uidArray[3]` value into the correct one.
 
 You can initially read UID from your RFID tokens by connecting a serial consiole from the Arduino IDE. Whenever you present a RFID token, the UID is logged in the serial console. On of the ToDo items is add a master token to add/delete valid tokens from the system interactive.  
 The M5Stack RFID face is actually a I2C RC522 RFID reader compatible with 13,56Mhz tokens.
@@ -58,8 +59,9 @@ If you additionally want to use readable names for the cards, define these in:
     String nameArray[3]={
       "Card1","Card2","Card3"
     };
+This example is also for 3 different tokens. Please change the number `nameArray[3]` into the corecct number of tokens.
 
-The names are now displayed in the header briefly and are being dumped to the serial console. But you could sent the names via MQTT and use it for displaying/Text To Speech or precense detection.
+The names are now displayed in the header briefly and are being dumped to the serial console. But you could sent the names via MQTT and use it for displaying/Text To Speech or presence detection.
 
 ## Uploading images to SPIFFS
 The pictures on the screen are PNG files loaded from the filesystem (SPIFFS) of the m5Stack. Through the Arduino IDE choose for *Tools > ESP32 Sketch Data Upload* from the menu to upload the pictures to the SPIFFS filesystem. The PNG picture files are in the [data folder](/data) of this github project. 
@@ -77,15 +79,17 @@ The screens follow the **MQTT_Status_topic**, whatever the status topic is **(ar
 If a button is pressed or a card is presented, the according Command **(ARM_AWAY, ARM_HOME or DISARM** is send to the **mqtt_command_topic**. The MQTT broker dispatches this to the alarm (via HA) and the alarm changes the status through the status topiuc, again via MQTT.
 
 ## M5Stack sound bug
-The I2C RFID redaer is interfering in a very annoyoing way with the onboard amplifier/speaker, resulting in a hisshing/whining sound sound. This is a known problem with the M5stack platform. To overcome this, I connected the enable amplifier input with GPIO 5 and first enable the amplifier before beeping and disabling the amplifier directly again after the beep. Read http://community.m5stack.com/topic/367/mod-to-programmatically-disable-speaker-whine-hiss to get more information.
+The I2C RFID reader is interfering in a very annoyoing way with the onboard amplifier/speaker, resulting in a hisshing/whining sound. This is a known problem with the M5stack platform. To overcome this, I connected the enable amplifier input with GPIO 5 and first enable the amplifier before beeping and disabling the amplifier directly again after the beep. Read http://community.m5stack.com/topic/367/mod-to-programmatically-disable-speaker-whine-hiss to get more information.
 
 ## ToDo
 * add auto screen brightness by adding an LDR or presence detection (screen on when someone in front) by using a small PIR.
 * Make it more secure by using more advanced features from the RFID tokens than just the UID.
 * Read valid UID's and names from a textfile of the SPIFFS filesystem.
-* Add Mastercard and RFID learning mode to interactivally add and remove tokens.
+* Add a master card and RFID learning mode to interactivally add and remove tokens.
 * Clean up the Code and make it more robust .
 * Add Availablilty topic (LWT and birth messages) so Host can see whenever panels are not online.
 * Make it more configureable (e.g. Continous pending beeps are not always enjoyed ;-)).
+* Fix the M5ez time problem
+* Make a version with keypad face instead of rfid face.
 
 *I am not a programmer in any way and I have very limited time free, so please feel free to improve or extend my code with additional features.*

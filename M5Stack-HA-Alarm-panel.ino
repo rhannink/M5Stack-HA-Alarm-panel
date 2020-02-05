@@ -97,7 +97,7 @@ int screenStatus = 1;
 MFRC522 mfrc522(0x28); 
 
 void setup(){
-    #include <themes/white.h>
+    #include <themes/default.h>
   
     M5.begin(true, false, true, true);
 
