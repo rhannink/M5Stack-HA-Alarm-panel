@@ -1,10 +1,10 @@
 
 
+
 // M5Stack Home Assistant RFID MQTT alarm panel
 // Author: Remco Hannink
-// Version: 0.1
-// Date: 15-01-2019
-
+// Version: 0.2
+// Date: 05-02-2020
 
 #include "FS.h"
 #include "SPIFFS.h"
@@ -90,6 +90,9 @@ String nameArray[3]={
   "Card1","Card2","Card3"
 };
 
+int beepVolume=1;
+int screenTimeout = 10000; // screen timeout in mSec
+int screenStatus = 1;
 
 MFRC522 mfrc522(0x28); 
 
@@ -137,7 +140,9 @@ void setup(){
 
 void callback(char* topic, byte* payload, unsigned int length) {
   String topicText= "";
-
+  M5.Lcd.setBrightness(50);
+  screenTimeout=10000;
+  screenStatus = 1;
   Serial.print("Message arrived [");
   Serial.print(topic);
   Serial.print("] ");
@@ -206,44 +211,95 @@ void loop(){
   }
   client.loop();
   M5.update();
+  screenTimeout = screenTimeout-200;
 
-  if (alarmStatus == mqtt_state_pending){
-    beep(100);
+  // If screenTimeout is zero then reset timer
+  
+  if (screenTimeout == 0){
+    screenTimeout=10000;
+    
+    // if screenTimeout is zero and screenStatus is on, the dim the screen
+    
+    if (screenStatus == 1){
+  
+      // if timer is zero and screen is on, dim the screen graduately in 50 steps ans set screen Status to 0
+      
+      for (int i = 50; i >= 0; i--) {
+        M5.Lcd.setBrightness(i);
+        delay(20);
+      }
+      screenStatus = 0;
+    }
   }
   
-  if(M5.BtnA.wasPressed() && (alarmStatus != mqtt_state_off))  {
+  // If alarm status equals pending, then make sure screen stays on
+  
+  if (alarmStatus == mqtt_state_pending){
+    M5.Lcd.setBrightness(50);
+    screenStatus = 1;
+    screenTimeout = 10000;
+  }
+
+  // If button A is pressed and status is not already off and screen is already on, the enable alarm off and ask for RFID token 
+    
+  if(M5.BtnA.wasPressed() && (alarmStatus != mqtt_state_off) && (screenStatus == 1))  {
     beep(100);
     ez.header.show(display_present_card);
     Serial.println(display_present_card);
-
+    screenTimeout = 10000;
+    screenStatus = 1;
   }
-  if(M5.BtnB.wasPressed() && (alarmStatus != mqtt_state_part)) {
+
+  // If button B is pressed and status is not already home and screen is on, then enable home away mode
+  
+  if(M5.BtnB.wasPressed() && (alarmStatus != mqtt_state_part) && (screenStatus == 1)) {
     beep(100);
-    M5.Lcd.setBrightness(100);
     M5.Lcd.drawJpgFile(SPIFFS, "/orange.jpg", 80, 40);
     ez.header.show(display_state_part);
     client.publish(mqtt_command_topic, mqtt_command_part);
     Serial.println(mqtt_command_part);
-
+    screenTimeout = 10000;
   }
-    if(M5.BtnC.wasPressed() && (alarmStatus != mqtt_state_full)) {
+
+  // If button C is pressed and status is not already away and screen is on, then enable away mode
+    
+  if(M5.BtnC.wasPressed() && (alarmStatus != mqtt_state_full) && (screenStatus == 1)) {
     beep(100);
     M5.Lcd.drawJpgFile(SPIFFS, "/red.jpg", 80, 40);
     ez.header.show(display_state_full);
     client.publish(mqtt_command_topic, mqtt_command_full);
     Serial.println(mqtt_command_full);
-
+    screenTimeout = 10000;
   }
+
+  // If any button was pressed while screen is off, the just turn screen on and do nothing else
+  
+  if((M5.BtnA.wasPressed() || M5.BtnB.wasPressed() || M5.BtnC.wasPressed()) && (screenStatus == 0)){
+    M5.Lcd.setBrightness(50);
+    screenTimeout=10000;
+    screenStatus = 1;
+    delay(200);
+  }
+  
   // Look for new cards, and select one if present
+  
   if ( ! mfrc522.PICC_IsNewCardPresent() || ! mfrc522.PICC_ReadCardSerial() ) {
     delay(200);
     return;
   }
   
   // Now a card is read. The UID is in mfrc522.uid.
-  // Only act if alarm state != off
+  // sound beep and turn on screen;
+
+  M5.Lcd.setBrightness(50);
+  screenTimeout = 10000;
+  screenStatus = 1;
+  beep(100);  
+
+  // Only act if alarm state != off, else, ignore card
+    
   if (alarmStatus != mqtt_state_off) {
-    beep(100);
+
     Serial.print(F("Card UID:"));
     for (byte i = 0; i < mfrc522.uid.size; i++) {
       readCard[i] = mfrc522.uid.uidByte[i];
@@ -254,6 +310,7 @@ void loop(){
     client.publish(mqtt_state_topic, "RFID card detected");
 
     // check if RFID UID is valid one and find username
+    
     for(int i=0; i<3; i++){
       Serial.print("Testing Match with checkArray ");
       Serial.println(i);
@@ -291,9 +348,10 @@ void tone_volume(uint16_t frequency, uint32_t duration) {
 }
 
 void beep(int leng) {
-  M5.Speaker.setVolume(1);
   digitalWrite(5, HIGH);
   delay(150);
+  M5.Speaker.setVolume(1);
+  M5.Speaker.update();
   tone_volume(1000, leng);
   digitalWrite(5, LOW);
 }
