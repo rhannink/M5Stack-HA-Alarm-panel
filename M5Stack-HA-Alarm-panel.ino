@@ -19,9 +19,8 @@
 #include <Tone32.h>
 #include <pitches.h>
 
-// set MQTT parameters to overcome constant reconnection
+// set MQTT timeout parameters to overcome constant reconnection
 
-#define MQTT_MAX_PACKET_SIZE 512
 #define MQTT_KEEPALIVE 60
 
 // The parameters below should be adapted to your own situation
