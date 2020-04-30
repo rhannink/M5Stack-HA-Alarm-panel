@@ -1,3 +1,8 @@
+# Version history
+0.1 - 19-01-2020 - Initial version
+
+0.2 - 05-02-2020 - Added screen Timeout and added more Code comments
+
 # M5Stack-HA-Alarm-panel
 M5stack alarm panel with RFID face to control Home Assistant MQTT alarm panel
 
