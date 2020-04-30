@@ -3,8 +3,8 @@
 
 // M5Stack Home Assistant RFID MQTT alarm panel
 // Author: Remco Hannink
-// Version: 0.2
-// Date: 05-02-2020
+// Version: 0.3
+// Date: 31-04-2020
 
 #include "FS.h"
 #include "SPIFFS.h"
@@ -18,6 +18,11 @@
 #include <PubSubClient.h>
 #include <Tone32.h>
 #include <pitches.h>
+
+// set MQTT parameters to overcome constant reconnection
+
+#define MQTT_MAX_PACKET_SIZE 512
+#define MQTT_KEEPALIVE 60
 
 // The parameters below should be adapted to your own situation
 
@@ -136,6 +141,7 @@ void setup(){
     m5stackClient.setCACert(ca_cert);
     client.setServer(mqtt_host, mqtt_port);
     client.setCallback(callback);
+    reconnect();
 }
 
 void callback(char* topic, byte* payload, unsigned int length) {
