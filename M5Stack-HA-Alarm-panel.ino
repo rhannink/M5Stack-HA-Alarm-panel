@@ -4,7 +4,7 @@
 // M5Stack Home Assistant RFID MQTT alarm panel
 // Author: Remco Hannink
 // Version: 0.3
-// Date: 31-04-2020
+// Date: 30-04-2020
 
 #include "FS.h"
 #include "SPIFFS.h"
