@@ -3,7 +3,7 @@
 
 0.2 - 05-02-2020 - Added screen Timeout and added more Code comments
 
-0.3 - 31-04-2020 - Added MQTT pubsubclient parameters to overcome constant MQTT reconnects
+0.3 - 31-04-2020 - Added MQTT pubsubclient timeout parameters to overcome constant MQTT reconnects
 
 # M5Stack-HA-Alarm-panel
 M5stack alarm panel with RFID face to control Home Assistant MQTT alarm panel
